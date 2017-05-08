@@ -13,22 +13,44 @@
 	var k_3 = rungeKuttaH * f(p0[0]+rungeKuttaH/2,p0[1] + k_2/2)
 	var k_4 = rungeKuttaH * f(p0[0]+rungeKuttaH  ,p0[1] + k_3)
 
-	var s1 = p0
+	var s1 = [p0[0]              ,p0[1]];
 	var s2 = [p0[0]+rungeKuttaH/2,p0[1] + k_1/2]
 	var s3 = [p0[0]+rungeKuttaH/2,p0[1] + k_2/2]
-	var s4 = [p0[0]+rungeKuttaH ,p0[1] + k_3];
+	var s4 = [p0[0]+rungeKuttaH  ,p0[1] + k_3];
 
 	var p1 = oneLinearIteration(s1,rungeKuttaH/2) // the point at the end of k_1
 	var p2 = oneLinearIteration(s2,rungeKuttaH/2)
 	var p3 = oneLinearIteration(s3,rungeKuttaH/2)
 	var p4 = oneLinearIteration(s4,rungeKuttaH/2)
 
+	//p2[1] = s2[0] + h/2, s2[1] + h/2 * f(s2[0],s2[1])
+	//s3 =    p0[0] + h/2, p0[1] + h/2 f(s2[0],s1[0])
+
 	//vectors go from s_n to p_n
 
-	function scalarMult(vec,n){
+	function vecscale(vec,n){
 		var vec2 = [];
-		for(var i=0;i<vec.length;vec++){
+		for(var i=0;i<vec.length;i++){
 			vec2.push(vec[i] * n)
+		}
+		return vec2;
+
+	}
+
+	function vecsub(a,b){ //a-b
+		var vec2 = [];
+		for(var i=0;i<a.length;i++){
+			vec2.push(a[i]-b[i])
+		}
+		return vec2;
+
+	}
+
+
+	function vecadd(a,b){ //a+b
+		var vec2 = [];
+		for(var i=0;i<a.length;i++){
+			vec2.push(a[i]+b[i])
 		}
 		return vec2;
 
@@ -238,9 +260,7 @@ present.slide({to: 20}).reveal() //slide 13: k3
 		    zIndex: 1,
 		  }).end()
 
-
 present.slide({to: 20}).reveal() //slide 13: k4
-	
 	 .array({
         channels: 2,
 		items: 2,
@@ -292,3 +312,58 @@ present.slide({to: 20}).reveal() //slide 13: k4
 		  }).end()
 
 //slide 14: move the arrows back-to-back
+
+var diffs = [vecsub(p1,s1),vecsub(p2,s2),vecsub(p3,s3),vecsub(p4,s4)]
+
+function vecpairadd(a,b){
+	return [a,vecadd(a,b)]
+}
+
+var zero = [0,0]
+
+var final_addition = [vecpairadd(zero,diffs[0]),vecpairadd(zero,diffs[1]),vecpairadd(zero,diffs[2]),vecpairadd(zero,diffs[3]),vecpairadd(s2,vecadd(diffs[1],diffs[2]))]
+[vecpairadd(zero,diffs[0]),vecpairadd(zero,diffs[1]),vecpairadd(zero,diffs[2]),vecpairadd(zero,diffs[3]),vecscale(vecpairadd(s2,vecadd(diffs[1],diffs[2])),1/2)]
+
+var avg_of_two_pls_3 = vecadd(vecadd(s2,vecscale(diffs[1],1/2)),vecscale(diffs[2],1/2));
+
+function tip_to_toe(vectorlist,start){
+	var vec2 = [];
+	var current_tip = start ? start.concat() : [0,0];
+	for(var i=0;i<vectorlist.length; i += 2){
+		var diff = vecsub(vectorlist[i+1],vectorlist[i]);
+		var newhead = vecadd(current_tip, diff)
+		
+		vec2.push(current_tip)
+		vec2.push(newhead)
+		current_tip = newhead;
+	}
+	return vec2;
+}
+
+var normal_list = [s1,vecadd(s1,diffs[0]),s2,vecadd(s2,diffs[1]),p2,vecadd(p2,diffs[2]),s4,vecadd(s4,diffs[3])];
+var scaled_list = [s1,vecadd(s1,vecscale(diffs[0],1/6)),s2,vecadd(s2,vecscale(diffs[1],1/3)),s3,vecadd(s3,vecscale(diffs[2],1/)),s4,vecadd(s4,vecscale(diffs[3],1/3))]
+
+/*
+present.slide({to: 16}).reveal()
+
+	.array({
+		data: [s1,p1,s2,p2,s3,p3,s4,p4],
+        channels: 2,
+		items: 2,
+      })
+	.play({
+        script: [
+                [{data: normal_list}],
+				//[{data: [vecpairadd(zero,diffs[0]),vecpairadd(zero,diffs[1]),vecpairadd(zero,diffs[2]),vecpairadd(zero,diffs[3])]}],
+				[{data: scaled_list}],
+
+				[{data: tip_to_toe(scaled_list,p0)}],
+				//[{data: [vecpairadd(zero,diffs[0]),vecpairadd(zero,diffs[1]),vecpairadd(zero,diffs[2]),vecpairadd(zero,diffs[3]),vecscale(vecpairadd(s2,vecadd(diffs[1],diffs[2])),1/2)]}],
+              ]
+			
+		})
+		.vector({
+        end: true,
+        width: 5,
+        color: green,
+      })*/
