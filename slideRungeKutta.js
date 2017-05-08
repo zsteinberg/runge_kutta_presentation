@@ -9,14 +9,14 @@
 	var p0 = [0.5,0.5];
 
     var k_1 = rungeKuttaH * f(p0[0],p0[1])
-	var k_2 = rungeKuttaH * f(p0[0]+rungeKuttaH/2,p0[1] + k_1* rungeKuttaH/2)
-	var k_3 = rungeKuttaH * f(p0[0]+rungeKuttaH/2,p0[1] + k_2* rungeKuttaH/2)
-	var k_4 = rungeKuttaH * f(p0[0]+rungeKuttaH  ,p0[1] + k_3* rungeKuttaH)
+	var k_2 = rungeKuttaH * f(p0[0]+rungeKuttaH/2,p0[1] + k_1/2)
+	var k_3 = rungeKuttaH * f(p0[0]+rungeKuttaH/2,p0[1] + k_2/2)
+	var k_4 = rungeKuttaH * f(p0[0]+rungeKuttaH  ,p0[1] + k_3)
 
 	var s1 = p0
-	var s2 = [p0[0]+rungeKuttaH/2,p0[1] + k_1* rungeKuttaH/2]
-	var s3 = [p0[0]+rungeKuttaH/2,p0[1] + k_2* rungeKuttaH/2]
-	var s4 = [p0[0]+rungeKuttaH ,p0[1] + k_3* rungeKuttaH];
+	var s2 = [p0[0]+rungeKuttaH/2,p0[1] + k_1/2]
+	var s3 = [p0[0]+rungeKuttaH/2,p0[1] + k_2/2]
+	var s4 = [p0[0]+rungeKuttaH ,p0[1] + k_3];
 
 	var p1 = oneLinearIteration(s1,rungeKuttaH/2) // the point at the end of k_1
 	var p2 = oneLinearIteration(s2,rungeKuttaH/2)
@@ -149,6 +149,42 @@ present.slide({to: 20}).reveal() //slide 12: time to shine! k2
 		    zIndex: 1,
 		  }).end()
 
+
+		//explain vector
+	.array({
+        channels: 2,
+		items: 2,
+      }).play({ delay: 2,
+              script: [
+                [{data: [p2,p2]}],
+                [{data: [[p2[0],p1[1]],p2]}], //extend downwards
+				[{data: [[p2[0],p0[1]],[p2[0],p2[1]-p1[1]+p0[1]]]}], //move down
+				[{data: [[p1[0],p0[1]],[p1[0],p2[1]-p1[1]+p0[1]]]}], //slide left to x=x_0+h/2
+              ]
+		})
+		.vector({
+        end: true,
+        width: 5,
+        color: green,
+      })
+
+	.array({
+		    channels: 2,
+			items: 1,
+			data: [s3],
+		  })
+		  .point({
+			size: 15,
+		    zIndex: 1,
+		    color: deeperblue,
+		  }).play({ delay: 2,
+              script: [
+                [{opacity: 0}],
+                [{opacity: 0}],
+				[{opacity: 0}],
+				[{opacity: 1}],
+              ]
+		})
 
 present.slide({to: 20}).reveal() //slide 13: k3
 	
