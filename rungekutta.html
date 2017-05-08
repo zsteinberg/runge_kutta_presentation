@@ -169,7 +169,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead header absolute"><div>
-              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply ' by h to find y_f</h4>
+              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply y' by h to find y_f</h4>
             </div></div>
           </div>
 
@@ -181,12 +181,12 @@ var play = mathbox.play({
             </div></div>
           </div>
 
-                    <!-- ============================================= -->
+                    <!-- ========================6==================== -->
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">A better solution is to make Taylor series, then see what value the series has at x_f.</h4>
-				<p> It'll have to be a taylor series of two variables, though, so the math gets messy.</p>
+				<p> It'll have to be a Taylor series of two variables, though, so the math gets messy.</p>
             </div></div>
           </div>
 
@@ -195,7 +195,7 @@ var play = mathbox.play({
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">To get a good approximation, you'll need to cut the terms off at some point.</h4>
-				<p> I'm using n=2 here, and the computations already require painful partial derivatives.</p> <!-- just kidding, I actually didn't make a taylor series using both X and Y, I just took a taylor series of the closed solution -->
+				<p> I'm using n=2 here, and the computations already require painful partial derivatives.</p> <!-- just kidding, I actually didn't make a Taylor series using both X and Y, I just took a Taylor series of the closed solution -->
             </div></div>
           </div>
 
@@ -203,7 +203,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">The Runge-Kutta method is a similar method that gets the same accuracy as a given taylor series of length N without as much computing</h4>
+              <h4 class="text-outline">The Runge-Kutta method is a similar method that gets the same accuracy as a given Taylor series of length N without as much computing</h4>
 				<p> Most of the time, "The Runge-Kutta method" refers to stopping at n=4 terms.</p>
             </div></div>
           </div>
@@ -212,7 +212,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Technically, there's a long derivation which you get by taking a taylor series and equating constants</h4>
+              <h4 class="text-outline">Technically, there's a long derivation which you get by taking a Taylor series and equating constants</h4>
 				<p>k1=f(y∗(t0),t0)</p>
 				<p>k2=f(y∗(t0)+k1h2,t0+h2)</p>
 				<p>k3=f(y∗(t0)+k2h2,t0+h2)</p>
@@ -225,7 +225,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Technically, there's a long derivation which you get by taking a taylor series and equating constants</h4>
+              <h4 class="text-outline">Technically, there's a long derivation which you get by taking a Taylor series and equating constants</h4>
 				<p>k1=f(y∗(t0),t0)</p>
 				<p>k2=f(y∗(t0)+k1h2,t0+h2)</p>
 				<p>k3=f(y∗(t0)+k2h2,t0+h2)</p>
