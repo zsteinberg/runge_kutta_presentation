@@ -26,9 +26,8 @@ slide1 = present.slide({from: 1, to: 50}).reveal()
         end: true,
         width: 5,
         color: blue,
-      });
-
-	var functionlabel = view.text({
+      })
+	.text({
         data: ['f(x) = x^2y'],
       })
       .label({
@@ -59,28 +58,29 @@ present.slide().reveal()
       });
 
 present.slide()
-      .volume({
-        expr: function (emit, x, y, i, j, t) {
-			emit(p0[0],p0[1]);
-			emit(firstIteration[0],firstIteration[1])
-        },
+      .array({
+        data: [
+			[p0[0],p0[1]],
+			[firstIteration[0],firstIteration[1]],
+        ],
         channels: 2,
 		items: 2,
-      }).vector({
-        end: true,
-        width: 5,
-        color: deeperblue,
-      }).point({
+      })
+	  .point({
 		size: 10,
         zIndex: 1,
         color: deeperblue,
       }).text({
-        data: ['x_0','x_f?'],
+        data: ['x_0','x_f?'], //not showing x_f
       })
       .label({
         color: 'black',
         zIndex: 1,
-      });
+      }).vector({
+        end: true,
+        width: 5,
+        color: deeperblue,
+      })
 /*
 present.slide().step({trigger: 3})
       .volume({

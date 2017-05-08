@@ -23,6 +23,7 @@ function showSlide(slideToShow){
 }
 
 //change slide on key change
+
   window.onkeydown = function(e) {
     switch (e.keyCode) {
       case 33:

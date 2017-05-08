@@ -18,10 +18,10 @@
 <body>
   <script>
     var mathbox = mathBox({
-      plugins: ['core', 'controls', 'cursor', 'mathbox'],
+      plugins: ['core', 'cursor', 'mathbox'],
       controls: {
         // Orbit controls, i.e. Euler angles, with gimbal lock
-        klass: THREE.OrbitControls,
+        //klass: THREE.OrbitControls,
 
         // Trackball controls, i.e. Free quaternion rotation
         //klass: THREE.TrackballControls,
@@ -99,21 +99,6 @@
         color: 'red',
         zIndex: 1,
       });
-          
-    // Animate
-    /*var play = mathbox.play({
-      target: 'cartesian',
-      pace: 5,
-      to: 2,
-      loop: true,
-      script: [
-        {props: {range: [[-2, 2], [-1, 1]]}},
-        {props: {range: [[-4, 4], [-2, 2]]}},
-        {props: {range: [[-2, 2], [-1, 1]]}},
-      ]
-    });*/
-            
-    //*/
 
     
   </script>
@@ -147,6 +132,8 @@
               <h4 class="text-outline">Let's say you have a function y' = f(x,y) that you can't directly solve for, but you want to integrate.</h4>
             </div></div>
           </div>
+
+
 
                     <!-- ============================================= -->
 
