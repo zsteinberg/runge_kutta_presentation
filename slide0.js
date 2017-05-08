@@ -1,4 +1,4 @@
-//slide0.js
+//slide0.js - slides 0-10, talking about different methods
 
 
 //presentation
@@ -67,34 +67,62 @@ present.slide({to: 10}).reveal() //slide 2 - show point x_0,y_0
       })
 
 	.transform({ //points on axes
-      scale: [0, 1],
       position: [0, 0],
+    }).play({
+			script: [
+			[{scale: [1, 1]}],
+			[{scale: [0, 1]}],
+			]
     }).point({
 			size: 15,
 		    zIndex: 1,
 		    color: green,
-		  }).text({
+	}).play({
+              script: [
+                [{opacity: 0}],
+                [{opacity: 1}],
+              ]
+	}).text({
 		    data: ['y_0'],
 		  })
 		  .label({
 		    color: 'black',
 		    zIndex: 1,
-		  }).end()
+		  }).play({
+              script: [
+                [{opacity: 0}],
+                [{opacity: 1}],
+              ]
+	}).end()
 
 	.transform({
-      scale: [1, 0],
       position: [0, 0],
+    }).play({
+              script: [
+                [{scale: [1, 1]}],
+                [{scale: [1, 0]}],
+              ]
     }).point({
 			size: 15,
 		    zIndex: 1,
 		    color: green,
-		  }).text({
+	}).play({
+              script: [
+                [{opacity: 0}],
+                [{opacity: 1}],
+              ]
+	}).text({
 		    data: ['x_0'],
 		  })
 		  .label({
 		    color: 'black',
 		    zIndex: 1,
-		  }).end()
+		  }).play({
+              script: [
+                [{opacity: 0}],
+                [{opacity: 1}],
+              ]
+	}).end()
 
 	.array({ //dot for x_0 + h
 		    data: [
@@ -102,20 +130,38 @@ present.slide({to: 10}).reveal() //slide 2 - show point x_0,y_0
 		    ],
 		    channels: 2,
 			items: 1,
-		  })
+		  }).play({
+              script: [
+				[{data: [p0[0],0]}],
+                [{data: [p0[0],0]}],
+                [{data: [p0[0]+rungeKuttaH,0]}],
+              ]
+	})
 		  .point({
 			size: 15,
 		    zIndex: 1,
 		    color: green,
-		  }).text({
+		  }).play({
+              script: [
+                [{opacity: 0}],
+                [{opacity: 0}],
+				[{opacity: 1}],
+              ]
+	}).text({
 		    data: ['x_0 + h'],
 		  })
 		  .label({
 		    color: 'green',
 		    zIndex: 1,
-		  })
+		  }).play({
+              script: [
+                [{opacity: 0}],
+                [{opacity: 0}],
+				[{opacity: 1}],
+              ]
+	})
 
-present.slide({from: 3, to: 5}) //slide 3, which stays present until 5
+present.slide({from: 3, to: 5}).reveal() //slide 3, which stays present until 5
 	.array({ //dot at end of arrow
 		    data: [
 				longFirstOrderGuess,
@@ -138,11 +184,21 @@ present.slide({from: 3, to: 5}) //slide 3, which stays present until 5
 		.transform({ //point on y-axis
 		  scale: [0, 1],
 		  position: [0, 0],
+		}).play({ delay: 0.5,
+              script: [
+                [{scale: [1,1]}],
+                [{scale: [0,1]}],
+              ]
 		}).point({
 				size: 15,
 				zIndex: 1,
 				color: green,
-			  }).text({
+			  }).play({ delay: 0.5,
+              script: [
+                [{opacity: 0}],
+                [{opacity: 1}],
+              ]
+		}).text({
 				data: ['y_f? (first-order)'],
 			  })
 			  .label({
@@ -186,10 +242,14 @@ present.slide().reveal() // slide 4
 		size: 15,
 		zIndex: 1,
 		color: blue
-	})
-		.transform({
+	}).transform({
 		  scale: [0, 1],
 		  position: [0, 0],
+		}).play({ delay: 0.5,
+              script: [
+                [{scale: [1,1]}],
+                [{scale: [0,1]}],
+              ]
 		}).point({
 		size: 15,
 		zIndex: 1,
@@ -200,7 +260,12 @@ present.slide().reveal() // slide 4
 	  .label({
 		color: 'black',
 		zIndex: 1,
-	  }).end()
+	  }).play({ delay: 0.5,
+              script: [
+                [{opacity: 0}],
+                [{opacity: 1}],
+              ]
+		}).end()
 
 present.slide({from: 5, to: 6}).reveal() // slides 5 and 6, with a taylor series
       .interval({
@@ -216,7 +281,6 @@ present.slide({from: 5, to: 6}).reveal() // slides 5 and 6, with a taylor series
 		//points
 		.array({
 		    data: [
-				p0,
 				longTaylorSeriesGuess,
 		    ],
 		    channels: 2,
@@ -227,7 +291,7 @@ present.slide({from: 5, to: 6}).reveal() // slides 5 and 6, with a taylor series
 		    zIndex: 1,
 		    color: deeperblue,
 		  }).text({
-		    data: ['x_0','x_f? (taylor series)'], //not showing x_f
+		    data: ['p_f? (taylor series)'], //not showing x_f
 		  })
 		  .label({
 		    color: 'black',
@@ -239,49 +303,3 @@ present.slide() //slide 8: definition
 present.slide() //slide 9: definition, cont.
 present.slide() //slide 10: definition, cont.
 
-
-
-present.slide().reveal() //slide 11: time to shine! k1
-	
-	 .array({
-        data: [
-			p0,
-			oneLinearIteration(p0,rungeKuttaH/2),
-        ],
-        channels: 2,
-		items: 2,
-      })
-		.vector({
-        end: true,
-        width: 5,
-        color: blue,
-      })
-	//point p1
-	.array({
-		    data: [
-				oneLinearIteration(p0,rungeKuttaH/2),
-		    ],
-		    channels: 2,
-			items: 1,
-		  })
-		  .point({
-			size: 15,
-		    zIndex: 1,
-		    color: deeperblue,
-		  })
-
-	//k0
-	.transform({
-      scale: [0, 1],
-      position: [0, 0],
-    }).point({
-			size: 15,
-		    zIndex: 1,
-		    color: green,
-		  }).text({
-		    data: ['k_1'], //not showing x_f
-		  })
-		  .label({
-		    color: 'black',
-		    zIndex: 1,
-		  }).end()
