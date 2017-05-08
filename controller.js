@@ -14,7 +14,6 @@ window.onload = function(){
 }
 
 function showSlide(slideToShow){
-	console.log(slideToShow);
 	if(slideToShow < slides.length && currentSlide < slides.length){
 	slides[currentSlide].hidden = true;
 	slides[slideToShow].hidden = false;
