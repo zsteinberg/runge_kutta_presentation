@@ -141,7 +141,7 @@ var play = mathbox.play({
                     <!-- ============================================= -->
 
           <div class="slide fill">
-            <div class="masthead header absolute"><div>
+            <div class="masthead footer absolute"><div>
               <h4 class="text-outline">Let's say you have a function y' = f(x,y) that you can't directly solve for, but you want to integrate.</h4>
             </div></div>
           </div>
@@ -152,7 +152,7 @@ var play = mathbox.play({
 
 
           <div class="slide fill">
-            <div class="masthead header absolute"><div>
+            <div class="masthead footer absolute"><div>
 				<p class="text-outline">I'll use y' = x^2 y here for the sake of clarity, even though it's separable.</p>
             </div></div>
           </div>
@@ -160,7 +160,7 @@ var play = mathbox.play({
                     <!-- ============================================= -->
 
           <div class="slide fill">
-            <div class="masthead header absolute"><div>
+            <div class="masthead footer absolute"><div>
               <h4 class="text-outline">You start out from a point (x0,y_0), and want to get to another point (x_0+h,y_f).</h4>
             </div></div>
           </div>
@@ -168,7 +168,7 @@ var play = mathbox.play({
                     <!-- ============================================= -->
 
           <div class="slide fill">
-            <div class="masthead header absolute"><div>
+            <div class="masthead footer absolute"><div>
               <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply y' by h to find y_f</h4>
             </div></div>
           </div>
@@ -176,8 +176,8 @@ var play = mathbox.play({
                     <!-- ======================slide 5======================= -->
 
           <div class="slide fill">
-            <div class="masthead header absolute"><div>
-              <h4 class="text-outline">But that obviously won't work for long distances, when errors build up.</h4>
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">But when comparing the approximation the actual answer, it's obvious that such an approximation won't work for long distances, when errors build up.</h4>
             </div></div>
           </div>
 
@@ -186,11 +186,11 @@ var play = mathbox.play({
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">A better solution is to make Taylor series, then see what value the series has at x_f.</h4>
-				<p> It'll have to be a Taylor series of two variables, though, so the math gets messy.</p>
+				<p> Because this is a Taylor series of two variables (both x and y), the math gets messy.</p>
             </div></div>
           </div>
 
-                    <!-- ============================================= -->
+                    <!-- =======================7===================== -->
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
@@ -199,7 +199,7 @@ var play = mathbox.play({
             </div></div>
           </div>
 
-                  <!-- ============================================= -->
+                  <!-- ========================8==================== -->
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
@@ -212,12 +212,13 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Technically, there's a long derivation which you get by taking a Taylor series and equating constants</h4>
+              <h4 class="text-outline">Here's the definition. You evaluate the function four times, and take a weighted average of the results.</h4>
 				<p>k1=f(y∗(t0),t0)</p>
 				<p>k2=f(y∗(t0)+k1h2,t0+h2)</p>
 				<p>k3=f(y∗(t0)+k2h2,t0+h2)</p>
 				<p>k4=f(y∗(t0)+k3h,t0+h)</p>
 				<p>y_f = 1/6 k1+ 2/6 k2+ 2/6 k3+ 1/6 k4</p>
+				<p></p>
             </div></div>
           </div>
 
@@ -225,11 +226,11 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Technically, there's a long derivation which you get by taking a Taylor series and equating constants</h4>
-				<p>k1=f(y∗(t0),t0)</p>
-				<p>k2=f(y∗(t0)+k1h2,t0+h2)</p>
-				<p>k3=f(y∗(t0)+k2h2,t0+h2)</p>
-				<p>k4=f(y∗(t0)+k3h,t0+h)</p>
+              <h4 class="text-outline">Here's the definition. You evaluate the function four times, and take a weighted average of the results.</h4>
+				<p>k_1=hf(y∗(t0),t0)</p>
+				<p>k_2=hf(y∗(t0)+k1h2,t0+h2)</p>
+				<p>k_3=hf(y∗(t0)+k2h2,t0+h2)</p>
+				<p>k_4=h f(y∗(t0)+k3h,t0+h)</p>
 				<p>y_f = 1/6 k1+ 2/6 k2+ 2/6 k3+ 1/6 k4</p>
 				<p>But that's hard to understand. Let's do it visually.</p>
             </div></div>
@@ -239,7 +240,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">First, you follow the derivative out to x_0+h/2.</h4>
+              <h4 class="text-outline">First, you take a first-order approximation of the derivative out to x_0+h/2.</h4>
             </div></div>
           </div>
 
