@@ -113,18 +113,6 @@ present.slide().reveal()
       .interval({
 		width: 50,
         expr: function (emit, x, i, t) {
-			emit(x,actual_diffeq_solution(x));
-        },
-        channels: 2,
-      }).line({
-        width: 10,
-        color: deeperblue,
-      })
-
-present.slide().reveal()
-      .interval({
-		width: 50,
-        expr: function (emit, x, i, t) {
 			emit(x,taylor_approximation(x));
         },
         channels: 2,
