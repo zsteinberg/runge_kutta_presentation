@@ -16,6 +16,10 @@ present = mathbox.select("cartesian").present({
 
 	var arrowPlotH = 0.3;
 
+	var rungeKuttaH = 0.75;
+
+	var p0Plusk1 = oneLinearIteration(p0,rungeKuttaH/2)
+
 slide1 = present.slide({from: 1, to: 50}).reveal()
     // Add some data
       .volume({
@@ -43,7 +47,7 @@ slide1 = present.slide({from: 1, to: 50}).reveal()
 
 //show first point
 present.slide() //slide 1
-present.slide({to: 10}).reveal() //slide 2
+present.slide({to: 10}).reveal() //slide 2 - show point x_0,y_0
       .volume({
         expr: function (emit, x, y, i, j, t) {
 			emit(p0[0],p0[1]);
@@ -55,17 +59,65 @@ present.slide({to: 10}).reveal() //slide 2
         zIndex: 1,
         color: deeperblue,
       }).text({
-        data: ['x_0'],
+        data: ['(x_0, y_0)'],
       })
       .label({
         color: 'black',
         zIndex: 1,
-      });
+      })
+
+	.transform({ //points on axes
+      scale: [0, 1],
+      position: [0, 0],
+    }).point({
+			size: 15,
+		    zIndex: 1,
+		    color: green,
+		  }).text({
+		    data: ['y_0'],
+		  })
+		  .label({
+		    color: 'black',
+		    zIndex: 1,
+		  }).end()
+
+	.transform({
+      scale: [1, 0],
+      position: [0, 0],
+    }).point({
+			size: 15,
+		    zIndex: 1,
+		    color: green,
+		  }).text({
+		    data: ['x_0'],
+		  })
+		  .label({
+		    color: 'black',
+		    zIndex: 1,
+		  }).end()
+
+	.array({ //dot for x_0 + h
+		    data: [
+				[p0[0]+rungeKuttaH,0],
+		    ],
+		    channels: 2,
+			items: 1,
+		  })
+		  .point({
+			size: 15,
+		    zIndex: 1,
+		    color: green,
+		  }).text({
+		    data: ['x_0 + h'],
+		  })
+		  .label({
+		    color: 'green',
+		    zIndex: 1,
+		  })
 
 present.slide({from: 3, to: 5}) //slide 3, which stays present until 5
-	.array({
+	.array({ //dot at end of arrow
 		    data: [
-				p0,
 				longFirstOrderGuess,
 		    ],
 		    channels: 2,
@@ -76,13 +128,29 @@ present.slide({from: 3, to: 5}) //slide 3, which stays present until 5
 		    zIndex: 1,
 		    color: deeperblue,
 		  }).text({
-		    data: ['x_0','x_f? (first-order)'], //not showing x_f
+		    data: ['x_f? (first-order)'], //not showing x_f
 		  })
 		  .label({
 		    color: 'black',
 		    zIndex: 1,
 		  })
-	 .array({
+
+		.transform({ //point on y-axis
+		  scale: [0, 1],
+		  position: [0, 0],
+		}).point({
+				size: 15,
+				zIndex: 1,
+				color: green,
+			  }).text({
+				data: ['y_f? (first-order)'],
+			  })
+			  .label({
+				color: 'black',
+				zIndex: 1,
+			  }).end()
+
+	 .array({ // arrow
         data: [
 			p0,
 			longFirstOrderGuess,
@@ -93,11 +161,11 @@ present.slide({from: 3, to: 5}) //slide 3, which stays present until 5
 		.vector({
         end: true,
         width: 5,
-        color: deeperblue,
+        color: blue,
       })
 
 present.slide().reveal() // slide 4
-      .interval({
+      .group().interval({ //line
 		width: 50,
         expr: function (emit, x, i, t) {
 			emit(x,actual_diffeq_solution(x));
@@ -106,7 +174,33 @@ present.slide().reveal() // slide 4
       }).line({
         width: 10,
         color: blue,
-      })
+      }).end()
+
+	 .array({ // //point on y-axis
+        data: [
+			[p0[0]+rungeKuttaH,actual_diffeq_solution(p0[0]+rungeKuttaH)],
+        ],
+        channels: 2,
+		items: 1,
+      }).point({
+		size: 15,
+		zIndex: 1,
+		color: blue
+	})
+		.transform({
+		  scale: [0, 1],
+		  position: [0, 0],
+		}).point({
+		size: 15,
+		zIndex: 1,
+		color: green,
+	  }).text({
+		data: ['y_f'],
+	  })
+	  .label({
+		color: 'black',
+		zIndex: 1,
+	  }).end()
 
 present.slide({from: 5, to: 6}).reveal() // slides 5 and 6, with a taylor series
       .interval({
@@ -143,15 +237,29 @@ present.slide({from: 5, to: 6}).reveal() // slides 5 and 6, with a taylor series
 present.slide() //slide 7: an introduction to the runge-kutta
 present.slide() //slide 8: definition
 present.slide() //slide 9: definition, cont.
+present.slide() //slide 10: definition, cont.
 
 
-var RungeKuttaH = 0.75;
 
-present.slide().reveal() //slide 10: time to shine!
+present.slide().reveal() //slide 11: time to shine! k1
+	
+	 .array({
+        data: [
+			p0,
+			oneLinearIteration(p0,rungeKuttaH/2),
+        ],
+        channels: 2,
+		items: 2,
+      })
+		.vector({
+        end: true,
+        width: 5,
+        color: blue,
+      })
+	//point p1
 	.array({
 		    data: [
-				p0,
-				oneLinearIteration(p0,RungeKuttaH/2),
+				oneLinearIteration(p0,rungeKuttaH/2),
 		    ],
 		    channels: 2,
 			items: 1,
@@ -160,24 +268,20 @@ present.slide().reveal() //slide 10: time to shine!
 			size: 15,
 		    zIndex: 1,
 		    color: deeperblue,
+		  })
+
+	//k0
+	.transform({
+      scale: [0, 1],
+      position: [0, 0],
+    }).point({
+			size: 15,
+		    zIndex: 1,
+		    color: green,
 		  }).text({
-		    data: ['','k_1'], //not showing x_f
+		    data: ['k_1'], //not showing x_f
 		  })
 		  .label({
 		    color: 'black',
 		    zIndex: 1,
-		  })
-	 .array({
-        data: [
-			p0,
-			oneLinearIteration(p0,RungeKuttaH/2),
-        ],
-        channels: 2,
-		items: 2,
-      })
-		.vector({
-        end: true,
-        width: 5,
-        color: deeperblue,
-      })
-
+		  }).end()
