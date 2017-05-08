@@ -7,9 +7,10 @@ present = mathbox.select("cartesian").present({
 });
 	var p0 = [0.5,0.5];
 
-	function oneLinearIteration(p0, h){
+	function oneLinearIteration(p0, h){ //follow a derivative a certain x-distance and return the point at the end.
 		return [p0[0] + h, p0[1] + h * f(p0[0],p0[1])]
 	}
+
 	var firstIteration = oneLinearIteration(p0,0.3)
 	var longFirstOrderGuess = oneLinearIteration(p0,0.75); // a terrible rough guess
 	var longTaylorSeriesGuess = [p0[0]+0.75,taylor_approximation(p0[0]+0.75)]
@@ -17,8 +18,6 @@ present = mathbox.select("cartesian").present({
 	var arrowPlotH = 0.3;
 
 	var rungeKuttaH = 0.75;
-
-	var p0Plusk1 = oneLinearIteration(p0,rungeKuttaH/2)
 
 slide1 = present.slide({from: 1, to: 50}).reveal()
     // Add some data
@@ -35,19 +34,24 @@ slide1 = present.slide({from: 1, to: 50}).reveal()
         end: true,
         width: 5,
         color: blue,
-      })
+        opacity: 1,
+      }).play({ from: 5,
+              script: [
+                [{opacity: 0.2}],
+              ]
+		})
 	.text({
         data: ['f(x) = x^2y'],
       })
       .label({
-        offset: [0, -140],
+        offset: [0, 140],
         zIndex: 1,
         color: 'black',
       });
 
-//show first point
+//show p0
 present.slide() //slide 1
-present.slide({to: 10}).reveal() //slide 2 - show point x_0,y_0
+present.slide({to: 20}).reveal() //slide 2 - show point x_0,y_0
       .volume({
         expr: function (emit, x, y, i, j, t) {
 			emit(p0[0],p0[1]);
