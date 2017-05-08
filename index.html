@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>A Presentation on the Runge-Kutta method</title>
+  <script src="mathbox-bundle.js"></script>
+
+
+    <link rel="stylesheet" href="css/typography.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/slides.css" />
+    <link rel="stylesheet" href="css/transition.css" />
+    <link rel="stylesheet" href="css/controls.css" />
+
+  <link rel="stylesheet" href="mathbox.css">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+</head>
+<body>
+  <script>
+    var mathbox = mathBox({
+      plugins: ['core', 'cursor', 'mathbox'],
+      controls: {
+        // Orbit controls, i.e. Euler angles, with gimbal lock
+        //klass: THREE.OrbitControls,
+
+        // Trackball controls, i.e. Free quaternion rotation
+        //klass: THREE.TrackballControls,
+      },
+    });
+    if (mathbox.fallback) throw "WebGL not supported"
+
+    var three = mathbox.three;
+    three.renderer.setClearColor(new THREE.Color(0xFFFFFF), 1.0);
+
+    // Do stuff with mathbox,
+    // for example: (see docs/intro.md)
+    
+
+    // Place camera
+    var camera =
+      mathbox
+      .camera({
+        proxy: true,
+        position: [0, 0, 3],
+      });
+
+    // 2D cartesian
+    var view =
+      mathbox
+      .cartesian({
+        range: [[-2, 2], [-1, 1]],
+        scale: [2, 1],
+      });
+
+    // Axes + grid
+    var axes = view
+      .axis({
+        axis: 1,
+        width: 3,
+      })
+      .axis({
+        axis: 2,
+        width: 3,
+      })
+      .grid({
+        width: 2,  
+        divideX: 20,
+        divideY: 10,        
+      });
+
+    // Make axes black
+    mathbox.select('axis').set('color', 'black');
+
+    // Calibrate focus distance for units
+    mathbox.set('focus', 3);
+
+    
+    // Draw ticks and labels
+    var scale =
+      view.scale({
+        divide: 10,
+      });
+    
+    var ticks =
+      view.ticks({
+        width: 5,
+        size: 15,
+        color: 'black',
+      });
+    
+    var format =
+      view.format({
+        digits: 2,
+        weight: 'bold',
+      });
+
+    var labels =
+      view.label({
+        color: 'red',
+        zIndex: 1,
+      });
+
+/*
+var play = mathbox.play({
+  target: 'cartesian',
+  pace: 5,
+  to: 2,
+  loop: true,
+  script: [
+    {props: {range: [[-2, 2], [-1, 1]]}},
+    {props: {range: [[-4, 4], [-2, 2]]}},
+    {props: {range: [[-2, 2], [-1, 1]]}},
+  ]
+});*/
+
+    
+  </script>
+  <script src="controller.js"></script>
+  <script src="constants.js"></script>
+  <script src="slide0.js"></script>
+  <script src="rungeKutta.js"></script>
+
+	<div class="allslides text-outline">
+
+        <section class="slide first">
+
+          <div class="masthead middle" style="background-color: white"><div>
+            <h1 class="text-giant text-outline">The Runge-Kutta Method</h1>
+            <p class="text-muted text-outline">hopefully working</p>
+          </div></div>
+
+          <div class="masthead footer"><div>
+
+            <div class="grid2 pad text-right text-outline">
+              <h3 class="text-muted">Zachary Steinberg</h3>
+            </div>
+
+          </div></div>
+
+        </section>
+
+                    <!-- ============================================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">Let's say you have a function y' = f(x,y) that you can't directly solve for, but you want to integrate.</h4>
+            </div></div>
+          </div>
+
+
+
+                    <!-- ============================================= -->
+
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+				<p class="text-outline">I'll use y' = x^2 y here for the sake of clarity, even though it's separable.</p>
+            </div></div>
+          </div>
+
+                    <!-- ============================================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">You start out from a point (x0,y_0), and want to get to another point (x_0+h,y_f).</h4>
+            </div></div>
+          </div>
+
+                    <!-- ============================================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply y' by h to find y_f</h4>
+            </div></div>
+          </div>
+
+                    <!-- ======================slide 5======================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">But when comparing the approximation the actual answer, it's obvious that such an approximation won't work for long distances, when errors build up.</h4>
+            </div></div>
+          </div>
+
+                    <!-- ========================6==================== -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">A better solution is to make Taylor series, then see what value the series has at x_f.</h4>
+				<p> Because this is a Taylor series of two variables (both x and y), the math gets messy.</p>
+            </div></div>
+          </div>
+
+                    <!-- =======================7===================== -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">To get a good approximation, you'll need to cut the terms off at some point.</h4>
+				<p> I'm using n=2 here, and the computations already require painful partial derivatives.</p> <!-- just kidding, I actually didn't make a Taylor series using both X and Y, I just took a Taylor series of the closed solution -->
+            </div></div>
+          </div>
+
+                  <!-- ========================8==================== -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">The Runge-Kutta method is a similar method that gets the same accuracy as a given Taylor series of length N without as much computing</h4>
+				<p> Most of the time, "The Runge-Kutta method" refers to stopping at n=4 terms.</p>
+            </div></div>
+          </div>
+
+                  <!-- =========================slide 9==================== -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">Here's the definition. You evaluate the function four times, and take a weighted average of the results.</h4>
+				<p>k_1=hf(x_0, y_0)</p>
+				<p>k_2=hf(x_0+h/2, y_0+k_1/2)</p>
+				<p>k_3=hf(x_0+h/2, y_0+k_2/2)</p>
+				<p>k_4=hf(x_0+h, y_0+k_3)</p>
+				<p>y_f = (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
+				<br />
+            </div></div>
+          </div>
+
+                  <!-- ============================================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">Here's the definition. You evaluate the function four times, and take a weighted average of the results.</h4>
+				<p>k_1=hf(x_0, y_0)</p>
+				<p>k_2=hf(x_0+h/2, y_0+k_1/2)</p>
+				<p>k_3=hf(x_0+h/2, y_0+k_2/2)</p>
+				<p>k_4=hf(x_0+h, y_0+k_3)</p>
+				<p>y_f = (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
+				<p>But that's hard to understand. Let's do it visually.</p>
+            </div></div>
+          </div>
+
+		<!-- ============================slide 11================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">First, you take a first-order approximation of the derivative out to x_0+h/2.</h4>
+            </div></div>
+          </div>
+
+		<!-- ============================slide 12================= -->
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">Then you take the derivative there, and move upwards solely in the y-axis.</h4>
+            </div></div>
+          </div>
+
+		<!-- ============================slide 13================= -->
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">Take the derivative there, and move out to x_0+h.</h4>
+            </div></div>
+          </div>
+		<!-- ============================slide 14================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">Finally, take the derivative at x_0+h.</h4>
+            </div></div>
+          </div>
+
+		<!-- ============================slide 15================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">If you sum up a weighted average of these values, you get a fairly accurate result for the integral.</h4>
+            </div></div>
+          </div>
+
+		<!-- ============================slide 16================= -->
+
+          <div class="slide fill">
+            <div class="masthead footer absolute"><div>
+              <h4 class="text-outline">The constants themselves are complicated.</h4>
+				<p> They're the result of a complicated and painful series of equations you get from equating coefficients.</p>
+            </div></div>
+          </div>
+
+	</div>
+
+</body>
+</html>
