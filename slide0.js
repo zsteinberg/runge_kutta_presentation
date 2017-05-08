@@ -42,9 +42,9 @@ slide1 = present.slide({from: 1, to: 50}).reveal()
         color: 'black',
       });
 
-//show first arrow
+//show first point
 present.slide()
-present.slide().reveal()
+present.slide({to: 10}).reveal()
       .volume({
         expr: function (emit, x, y, i, j, t) {
 			emit(p0[0],p0[1]);
