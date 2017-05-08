@@ -100,6 +100,19 @@
         zIndex: 1,
       });
 
+/*
+var play = mathbox.play({
+  target: 'cartesian',
+  pace: 5,
+  to: 2,
+  loop: true,
+  script: [
+    {props: {range: [[-2, 2], [-1, 1]]}},
+    {props: {range: [[-4, 4], [-2, 2]]}},
+    {props: {range: [[-2, 2], [-1, 1]]}},
+  ]
+});*/
+
     
   </script>
   <script src="controller.js"></script>
@@ -156,7 +169,7 @@
 
           <div class="slide fill">
             <div class="masthead header absolute"><div>
-              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply f' by h to find y_f</h4>
+              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply ' by h to find y_f</h4>
             </div></div>
           </div>
 
@@ -173,6 +186,7 @@
           <div class="slide fill">
             <div class="masthead header absolute"><div>
               <h4 class="text-outline">A better solution is to make Taylor series, then see what value the series has at x_f.</h4>
+				<p> It'll have to be a taylor series of two variables, though, and it's messy. 
             </div></div>
           </div>
 
