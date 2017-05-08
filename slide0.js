@@ -35,8 +35,9 @@ slide1 = present.slide({from: 1, to: 50}).reveal()
         width: 5,
         color: blue,
         opacity: 1,
-      }).play({ from: 5,
+      }).play({ trigger: 2,
               script: [
+				[{opacity: 1}],
                 [{opacity: 0.2}],
               ]
 		})
