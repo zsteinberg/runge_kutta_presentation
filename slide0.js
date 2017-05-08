@@ -52,7 +52,7 @@ slide1 = present.slide({from: 1, to: 50}).reveal()
 
 //show p0
 present.slide() //slide 1
-present.slide({to: 20}).reveal() //slide 2 - show point x_0,y_0
+present.slide({to: 16}).reveal() //slide 2 - show point x_0,y_0
       .volume({
         expr: function (emit, x, y, i, j, t) {
 			emit(p0[0],p0[1]);

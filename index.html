@@ -271,7 +271,7 @@ var play = mathbox.play({
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">If you sum up a weighted average of these values, you get a fairly accurate result for the integral.</h4>
-				<p>y_f = (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
+				<p>y_f = y_0 + (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
             </div></div>
           </div>
 
@@ -279,10 +279,26 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">The constants themselves are complicated.</h4>
-				<p> They're the result of a complicated and painful series of equations you get from equating coefficients.</p>
+              <h4 class="text-outline">Because of those middle terms, the Runge-Kutta method only has error proportional to O(h^5).</h4>
+				<p> And it's less computationally intensive than a taylor series</p>
             </div></div>
           </div>
+
+ 		<div class="slide fill">
+
+          <div class="masthead middle"><div>
+            <h1 class="text-giant text-outline">Thank you!</h1>
+          </div></div>
+
+          <div class="masthead footer"><div>
+
+            <div class="grid2 pad text-right text-outline">
+              <h3 class="text-muted">Made with <a href="http://acko.net">Steven Wittens' amazing library Mathbox</a></h3>
+            </div>
+
+          </div></div>
+
+        </section>
 
 	</div>
 

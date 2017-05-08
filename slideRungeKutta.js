@@ -58,7 +58,7 @@
 
 	
 
-present.slide({to: 20}).reveal() //slide 11: time to shine! k1
+present.slide({to: 15}).reveal() //slide 11: time to shine! k1
 	
 	 .array({
         data: [
@@ -118,7 +118,7 @@ present.slide({to: 20}).reveal() //slide 11: time to shine! k1
 		  }).end()
 
 
-present.slide({to: 20}).reveal() //slide 12: time to shine! k2
+present.slide({to: 15}).reveal() //slide 12: time to shine! k2
 	
 	 .array({
         channels: 2,
@@ -208,7 +208,7 @@ present.slide({to: 20}).reveal() //slide 12: time to shine! k2
               ]
 		})
 
-present.slide({to: 20}).reveal() //slide 13: k3
+present.slide({to: 15}).reveal() //slide 13: k3
 	
 	 .array({
         channels: 2,
@@ -260,7 +260,7 @@ present.slide({to: 20}).reveal() //slide 13: k3
 		    zIndex: 1,
 		  }).end()
 
-present.slide({to: 20}).reveal() //slide 13: k4
+present.slide({to: 15}).reveal() //slide 13: k4
 	 .array({
         channels: 2,
 		items: 2,
@@ -341,29 +341,45 @@ function tip_to_toe(vectorlist,start){
 }
 
 var normal_list = [s1,vecadd(s1,diffs[0]),s2,vecadd(s2,diffs[1]),p2,vecadd(p2,diffs[2]),s4,vecadd(s4,diffs[3])];
-var scaled_list = [s1,vecadd(s1,vecscale(diffs[0],1/6)),s2,vecadd(s2,vecscale(diffs[1],1/3)),s3,vecadd(s3,vecscale(diffs[2],1/)),s4,vecadd(s4,vecscale(diffs[3],1/3))]
+var scaled_list = [s1,vecadd(s1,vecscale(diffs[0],1/6)),s2,vecadd(s2,vecscale(diffs[1],1/3)),s3,vecadd(s3,vecscale(diffs[2],1/2)),s4,vecadd(s4,vecscale(diffs[3],1/3))]
 
-/*
-present.slide({to: 16}).reveal()
+
+present.slide({to: 15}).reveal()
 
 	.array({
-		data: [s1,p1,s2,p2,s3,p3,s4,p4],
+		data: [p0,p4],
         channels: 2,
 		items: 2,
       })
 	.play({
         script: [
-                [{data: normal_list}],
-				//[{data: [vecpairadd(zero,diffs[0]),vecpairadd(zero,diffs[1]),vecpairadd(zero,diffs[2]),vecpairadd(zero,diffs[3])]}],
-				[{data: scaled_list}],
-
-				[{data: tip_to_toe(scaled_list,p0)}],
-				//[{data: [vecpairadd(zero,diffs[0]),vecpairadd(zero,diffs[1]),vecpairadd(zero,diffs[2]),vecpairadd(zero,diffs[3]),vecscale(vecpairadd(s2,vecadd(diffs[1],diffs[2])),1/2)]}],
+                [{data: [p0,p0]}],
+				[{data: [p0,[p0[0]+rungeKuttaH, p0[1] + 1/6*k_1 + 1/3 * k_2 + 1/3 * k_3 + 1/6 * k_4]]}],
               ]
-			
 		})
 		.vector({
         end: true,
         width: 5,
         color: green,
-      })*/
+      })
+
+
+present.slide().reveal()
+
+	.array({
+		data: [[p0[0]+rungeKuttaH,actual_diffeq_solution(p0[0]+rungeKuttaH)],longFirstOrderGuess,longTaylorSeriesGuess,[p0,[p4[0], p0[1] + 1/6*k_1 + 1/3 * k_2 + 1/3 * k_3 + 1/6 * k_4]]
+
+			],
+        channels: 2,
+		items: 1,
+      }).point({
+			size: 15,
+		    zIndex: 1,
+		    color: green,
+      }).text({
+		    data: ['actual y_f','first-order','taylor series','runge-kutta'], //not showing x_f
+		  })
+		  .label({
+		    color: 'black',
+		    zIndex: 1,
+		  })
