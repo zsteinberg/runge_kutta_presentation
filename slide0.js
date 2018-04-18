@@ -296,7 +296,7 @@ present.slide({from: 5, to: 6}).reveal() // slides 5 and 6, with a taylor series
 		    zIndex: 1,
 		    color: deeperblue,
 		  }).text({
-		    data: ['p_f? (taylor series)'], //not showing x_f
+		    data: ['(x_f,y_f)? (taylor series)'], //not showing x_f
 		  })
 		  .label({
 		    color: 'black',

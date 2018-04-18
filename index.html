@@ -126,7 +126,6 @@ var play = mathbox.play({
 
           <div class="masthead middle" style="background-color: white"><div>
             <h1 class="text-giant text-outline">The Runge-Kutta Method</h1>
-            <p class="text-muted text-outline">hopefully working</p>
           </div></div>
 
           <div class="masthead footer"><div>
@@ -154,7 +153,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-				<p class="text-outline">I'll use y' = x^2 y here for the sake of clarity, even though it's separable.</p>
+				<p class="text-outline">I'll use y' = x<sup>2</sup> y here for the sake of clarity, even though we can solve it without using the Runge-Kutta method since it's separable.</p>
             </div></div>
           </div>
 
@@ -162,7 +161,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">You start out from a point (x0,y_0), and want to get to another point (x_0+h,y_f).</h4>
+              <h4 class="text-outline">You start out from a point (x<sub>0</sub>,y<sub>0</sub>), and want to get to another point (x<sub>0</sub>+h,y<sub>f</sub>).</h4>
             </div></div>
           </div>
 
@@ -170,7 +169,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply y' by h to find y_f</h4>
+              <h4 class="text-outline">The easiest solution is just to assume the derivative is constant: multiply y' by h to find y<sub>f</sub></h4>
             </div></div>
           </div>
 
@@ -186,7 +185,7 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">A better solution is to make Taylor series, then see what value the series has at x_f.</h4>
+              <h4 class="text-outline">A better solution is to make Taylor series, then see what value the series has at x<sub>f</sub>.</h4>
 				<p> Because this is a Taylor series of two variables (both x and y), the math gets messy.</p>
             </div></div>
           </div>
@@ -204,8 +203,8 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">The Runge-Kutta method is a similar method that gets the same accuracy as a given Taylor series of length N without as much computing</h4>
-				<p> Most of the time, "The Runge-Kutta method" refers to stopping at n=4 terms.</p>
+              <h4 class="text-outline">The Runge-Kutta method is a similar method that gets the same accuracy as a given Taylor series of length N without as much computing.</h4>
+				<h6> Most of the time, "The Runge-Kutta method" refers to stopping at n=4 terms.</h6>
             </div></div>
           </div>
 
@@ -214,12 +213,12 @@ var play = mathbox.play({
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">Here's the definition. You evaluate the function four times, and take a weighted average of the results.</h4>
-				<p>k_1=hf(x_0, y_0)</p>
-				<p>k_2=hf(x_0+h/2, y_0+k_1 /2)</p>
-				<p>k_3=hf(x_0+h/2, y_0+k_2 /2)</p>
-				<p>k_4=hf(x_0+h, y_0+k_3)</p>
-				<p>y_f = (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
-				<br />
+				<p>k<sub>1</sub>=hf(x<sub>0</sub>, y<sub>0</sub>)</p>
+				<p>k<sub>2</sub>=hf(x<sub>0</sub>+h/2, y<sub>0</sub>+k<sub>1</sub> /2)</p>
+				<p>k<sub>3</sub>=hf(x<sub>0</sub>+h/2, y<sub>0</sub>+k<sub>2</sub> /2)</p>
+				<p>k<sub>4</sub>=hf(x<sub>0</sub>+h, y<sub>0</sub>+k<sub>3</sub>)</p>
+				<p>y<sub>final</sub> = (1/6 k<sub>1</sub>+ 2/6 k<sub>2</sub>+ 2/6 k<sub>3</sub>+ 1/6 k<sub>4</sub>)</p>
+				<p style="opacity: 0">But that's hard to understand. Let's do it visually.</p>
             </div></div>
           </div>
 
@@ -228,11 +227,11 @@ var play = mathbox.play({
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">Here's the definition. You evaluate the function four times, and take a weighted average of the results.</h4>
-				<p>k_1=hf(x_0, y_0)</p>
-				<p>k_2=hf(x_0+h/2, y_0+k_1 /2)</p>
-				<p>k_3=hf(x_0+h/2, y_0+k_2 /2)</p>
-				<p>k_4=hf(x_0+h, y_0+k_3)</p>
-				<p>y_f = (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
+				<p>k<sub>1</sub>=hf(x<sub>0</sub>, y<sub>0</sub>)</p>
+				<p>k<sub>2</sub>=hf(x<sub>0</sub>+h/2, y<sub>0</sub>+k<sub>1</sub> /2)</p>
+				<p>k<sub>3</sub>=hf(x<sub>0</sub>+h/2, y<sub>0</sub>+k<sub>2</sub> /2)</p>
+				<p>k<sub>4</sub>=hf(x<sub>0</sub>+h, y<sub>0</sub>+k<sub>3</sub>)</p>
+				<p>y<sub>final</sub> = (1/6 k<sub>1</sub>+ 2/6 k<sub>2</sub>+ 2/6 k<sub>3</sub>+ 1/6 k<sub>4</sub>)</p>
 				<p>But that's hard to understand. Let's do it visually.</p>
             </div></div>
           </div>
@@ -241,28 +240,28 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">First, you take a first-order approximation of the derivative out to x_0+h/2.</h4>
+              <h4 class="text-outline">First, you take a first-order approximation of the derivative out to x<sub>0</sub>+h/2.</h4>
             </div></div>
           </div>
 
 		<!-- ============================slide 12================= -->
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Then you take another guess at y_n from halfway there. To reduce error even further, keep the x-coordinate you started with.</h4>
+              <h4 class="text-outline">Then you take another guess at y<sub>n</sub> from halfway there. To reduce error even further, keep the x-coordinate you started with.</h4>
             </div></div>
           </div>
 
 		<!-- ============================slide 13================= -->
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Take the derivative there, and move out to x_0+h.</h4>
+              <h4 class="text-outline">Take the derivative there, and move out to x<sub>0</sub>+h.</h4>
             </div></div>
           </div>
 		<!-- ============================slide 14================= -->
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Finally, take the derivative at x_0+h.</h4>
+              <h4 class="text-outline">Finally, take the derivative at x<sub>0</sub>+h.</h4>
             </div></div>
           </div>
 
@@ -271,7 +270,7 @@ var play = mathbox.play({
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
               <h4 class="text-outline">If you sum up a weighted average of these values, you get a fairly accurate result for the integral.</h4>
-				<p>y_f = y_0 + (1/6 k_1+ 2/6 k_2+ 2/6 k_3+ 1/6 k_4)</p>
+				<p>y<sub>f</sub> = y<sub>0</sub> + (1/6 k<sub>1</sub>+ 2/6 k<sub>2</sub>+ 2/6 k<sub>3</sub>+ 1/6 k<sub>4</sub>)</p>
             </div></div>
           </div>
 
@@ -279,8 +278,8 @@ var play = mathbox.play({
 
           <div class="slide fill">
             <div class="masthead footer absolute"><div>
-              <h4 class="text-outline">Because of those middle terms, the Runge-Kutta method only has error proportional to O(h^5).</h4>
-				<p> And it's less computationally intensive than a taylor series</p>
+              <h4 class="text-outline">As a result, the Runge-Kutta method achieves the exact same result as a Taylor series, with error proportional to O(h<sup>5</sup>), while being less computationally intensive.</h4>
+				<h6> (Its authors derived their formula from a taylor series, in fact)</h6>
             </div></div>
           </div>
 
